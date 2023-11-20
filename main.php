@@ -17,7 +17,7 @@ foreach ($obj['events'] as $event) {
         case 'menu':
             $msg = "你好，這裡是貓貓助手\n";
             $msg = $msg . "請選擇您要的項目:\n";
-            $msg = $msg . "1. 開始輪燒紀錄\n";
+            $msg = $msg . "1. 新增輪燒紀錄\n";
             $msg = $msg . "2. 結束輪燒紀錄\n";
             $msg = $msg . "3. 查詢輪燒紀錄\n";
             $msg = $msg . "4. 使用說明\n";
