@@ -33,7 +33,7 @@ class default_action
             $data = [];
             $data['message'] = $message;
             $data['token'] = $token;
-            frenzyTotem::finish($data);
+            frenzyTotem::start_detail($data);
         }
     }
 }

@@ -21,10 +21,89 @@ class frenzyTotem
         return $msg;
     }
 
+    public static function start_detail($data){
+        $message = $data['message'];
+        $reply['replyToken'] = $data['token'];
+        $message_data = explode(' ', $message);
+        $message_data_count = count($message_data);
+
+        /* 11/21 1.5H +1.8E */
+
+        /* 日期 */
+        $date = $message_data[0];
+        /* 租用時長 */
+        $time_long_str = strtoupper($message_data[1]);
+        if (strpos($time_long_str, 'H') !== false){
+            $time_long = explode('H', $time_long_str)[0];
+        }
+        /* 租用時間 */
+        if ($message_data_count == 4){
+
+        }
+        /* 金額 */
+        if ($message_data_count == 3){
+            $amount_str = strtoupper($message_data[2]);   
+        }else if ($message_data_count == 4){
+            $amount_str = strtoupper($message_data[3]);  
+        }
+        if (strpos($amount_str, '+') !== false){
+            /* 取得金額 */
+            $amount = explode('+', $amount_str)[1];
+            /* 判斷單位 */
+            $unit = substr($amount, -1);        // 楓幣
+            if ($unit == 'W'){
+                $amount_maple = (explode('W', $amount_str)[0]) / 1000;
+            }else if ($unit == 'E'){            // 楓幣
+                $amount_maple = explode('E', $amount_str)[0];
+            }else{                              // Linepay
+                $amount_ntd = $amount;
+            }
+        }
+
+        $amount_maple = ($amount_maple > 0) ? $amount_maple : 0;
+        $amount_ntd = ($amount_ntd > 0) ? $amount_ntd : 0;
+
+        $record = [];
+        // $record['date'] = $date;
+        // $record['time'] = $time;
+        $record['type'] = 0;
+        $record['amount_maple'] = $amount_maple;
+        $record['amount_ntd'] = $amount_ntd;
+        $record['start_at'] = date("H:i:s");
+        $record['finished_at'] = date("H:i:s", strtotime(date("H:i:s")) + $time_long * 60 * 60);
+        $record['date'] = date("Y/m/d");
+
+        MYPDO::$table = 'frenzyTotemRecords';
+        MYPDO::$data = $record;
+        $insert_id = MYPDO::insert();
+
+        /* 變更動作 */
+        MYPDO::$table = 'action';
+        MYPDO::$data = [
+            'code' => 1,
+            'name' => '新增輪燒紀錄',
+            'time' => date("Y/m/d H:i:s")
+        ];
+        MYPDO::insert();
+
+        if ($insert_id > 0){
+            $msg = '出租資料已建立';
+        }else{
+            $msg = '出租資料紀錄失敗';
+        }
+        $reply['msg'] = $msg;
+        reply::common($reply);
+    }
+
     public static function finish($data){
 
         $message = $data['message'];
         $reply['replyToken'] = $data['token'];
+
+        $data_arr = explode(' ', $message);
+        $data_count = count($data_arr);
+        $date = $data_arr[0];
+        $time = $data_arr[1];
 
         $message_data = explode('<br />', $message);
         $type = trim(explode(':', $message_data[1])[1]);
