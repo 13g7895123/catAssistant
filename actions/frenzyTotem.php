@@ -36,9 +36,6 @@ class frenzyTotem
         if (strpos($time_long_str, 'H') !== false){
             $time_long = explode('H', $time_long_str)[0];
         }
-        $reply['msg'] = $time_long;
-        reply::common($reply);
-        return;
         /* 租用時間 */
         if ($message_data_count == 4){
 
@@ -73,6 +70,10 @@ class frenzyTotem
         $record['start_at'] = date("H:i:s");
         $record['finished_at'] = date("H:i:s", strtotime(date("H:i:s")) + $time_long * 60 * 60);
         $record['date'] = date("Y/m/d");
+
+        $reply['msg'] = json_encode($record);
+        reply::common($reply);
+        return;
 
         MYPDO::$table = 'frenzyTotemRecords';
         MYPDO::$data = $record;
