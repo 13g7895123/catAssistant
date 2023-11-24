@@ -53,7 +53,7 @@ class frenzyTotem
             $unit = substr($amount, -1);
             $amount_str = explode('+', $amount_str)[1];
             if ($unit == 'W'){
-                $amount_maple = (explode('W', $amount_str)[0]) / 1000;
+                $amount_maple = explode('W', $amount_str)[0];
             }else if ($unit == 'E'){            // 楓幣
                 $amount_maple = explode('E', $amount_str)[0];
             }else{                              // Linepay
@@ -70,7 +70,7 @@ class frenzyTotem
 
         $record = [];
         $record['type'] = $type;
-        $record['amount_maple'] = $amount_maple;
+        $record['amount_maple'] = $amount_maple / 10000;    /* 寫入單位為億 */
         $record['amount_ntd'] = $amount_ntd;
         $record['start_at'] = $start_at;
         $record['finished_at'] = $finished_at;
