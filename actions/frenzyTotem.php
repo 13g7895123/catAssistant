@@ -50,7 +50,8 @@ class frenzyTotem
             /* 取得金額 */
             $amount = explode('+', $amount_str)[1];
             /* 判斷單位 */
-            $unit = substr($amount, -1);        // 楓幣
+            $unit = substr($amount, -1);
+            $amount_str = explode('+', $amount_str);
             if ($unit == 'W'){
                 $amount_maple = (explode('W', $amount_str)[0]) / 1000;
             }else if ($unit == 'E'){            // 楓幣
@@ -74,11 +75,6 @@ class frenzyTotem
         MYPDO::$table = 'frenzyTotemRecords';
         MYPDO::$data = $record;
         $insert_id = MYPDO::insert();
-
-        // $reply['msg'] = json_encode($record);
-        $reply['msg'] = $insert_id;
-        reply::common($reply);
-        return;
 
         /* 變更動作 */
         MYPDO::$table = 'action';
