@@ -27,13 +27,23 @@ class default_action
             MYPDO::$order = ['time' => 'desc'];
             $result = MYPDO::first();
 
-            /* 驗證動作時間是否超時 */
+            /* 時間差 */
+            $exe_time = strtotime($result['time']);
+            $now_time = strtotime(date('Y/m/d H:i:s'));
+            $diff_minute = round(abs($now_time - $exe_time) / 60, 2);
 
-            /* 執行動作 */
-            $data = [];
-            $data['message'] = $message;
-            $data['token'] = $token;
-            frenzyTotem::start_detail($data);
+            if ($result['code'] == 1 && $diff_minute < 3){  /* 新增紀錄 */
+                /* 執行動作 */
+                $data = [];
+                $data['message'] = $message;
+                $data['token'] = $token;
+                frenzyTotem::start_detail($data);
+            }else{
+                $reply['msg'] = $message;
+                $reply['replyToken'] = $token;
+
+                reply::common($reply);
+            }
         }
     }
 }
