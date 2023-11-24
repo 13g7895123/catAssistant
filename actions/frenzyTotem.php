@@ -61,16 +61,20 @@ class frenzyTotem
             }
         }
 
+        $type = 0
         $amount_maple = ($amount_maple > 0) ? $amount_maple : 0;
         $amount_ntd = ($amount_ntd > 0) ? $amount_ntd : 0;
+        $start_at = date("H:i:s");
+        $finished_at = date("H:i:s", strtotime(date("H:i:s")) + $time_long * 60 * 60);
+        $record_date = date("Y/m/d");
 
         $record = [];
-        $record['type'] = '0';
+        $record['type'] = $type;
         $record['amount_maple'] = $amount_maple;
         $record['amount_ntd'] = $amount_ntd;
-        $record['start_at'] = date("H:i:s");
-        $record['finished_at'] = date("H:i:s", strtotime(date("H:i:s")) + $time_long * 60 * 60);
-        $record['date'] = date("Y/m/d");
+        $record['start_at'] = $start_at;
+        $record['finished_at'] = $finished_at;
+        $record['date'] = $record_date;
 
         MYPDO::$table = 'frenzyTotemRecords';
         MYPDO::$data = $record;
@@ -85,13 +89,37 @@ class frenzyTotem
         ];
         MYPDO::insert();
 
+        if ($amount_maple > 0){
+            $message_amount = $amount_maple . '(楓幣)';
+        }else if ($amount_ntd > 0){
+            $message_amount = $amount_maple . '(Linepay)';
+        }
         if ($insert_id > 0){
-            $msg = '出租資料已建立';
+            $msg = "紀錄資料如下\n";
+            $msg = $msg . "類型:" . $type . "\n";
+            $msg = $msg . "金額" . $message_amount ."\n";
+            $msg = $msg . "開始時間" . $start_at ."\n";
+            $msg = $msg . "結束時間" . $finished_at ."\n";
+            $msg = $msg . "日期" . $record_date ."\n";
+            $payload = [
+                'replyToken' => $event['replyToken'],
+                'messages' => [
+                    [
+                        'type' => 'text',
+                        'text' => '出租資料已建立'
+                    ],
+                    [
+                        'type' => 'text',
+                        'text' => $msg
+                    ]
+                ]
+            ];
+            custom_class::send_reply($payload);
         }else{
             $msg = '出租資料紀錄失敗';
+            $reply['msg'] = $msg;
+            reply::common($reply);
         }
-        $reply['msg'] = $msg;
-        reply::common($reply);
     }
 
     public static function finish($data){
