@@ -76,9 +76,9 @@ class frenzyTotem
         $record['finished_at'] = $finished_at;
         $record['date'] = $record_date;
 
-        $reply['msg'] = json_encode($record);
-        reply::common($reply);
-        return;
+        // $reply['msg'] = json_encode($record);
+        // reply::common($reply);
+        // return;
 
         MYPDO::$table = 'frenzyTotemRecords';
         MYPDO::$data = $record;
