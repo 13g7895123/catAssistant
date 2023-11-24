@@ -38,10 +38,9 @@ class default_action
                 $data['message'] = $message;
                 $data['token'] = $token;
                 frenzyTotem::start_detail($data);
-            }else{
+            }else{                                          /* 預設動作為回覆一樣的訊息 */
                 $reply['msg'] = $message;
                 $reply['replyToken'] = $token;
-
                 reply::common($reply);
             }
         }
