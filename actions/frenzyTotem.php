@@ -18,6 +18,7 @@ class frenzyTotem
         }else{
             $msg = '出租資料紀錄失敗';
         }
+        $msg = 234;
         return $msg;
     }
 
