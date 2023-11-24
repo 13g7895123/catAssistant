@@ -51,7 +51,7 @@ class frenzyTotem
             $amount = explode('+', $amount_str)[1];
             /* 判斷單位 */
             $unit = substr($amount, -1);
-            $amount_str = explode('+', $amount_str);
+            $amount_str = explode('+', $amount_str)[1];
             if ($unit == 'W'){
                 $amount_maple = (explode('W', $amount_str)[0]) / 1000;
             }else if ($unit == 'E'){            // 楓幣
