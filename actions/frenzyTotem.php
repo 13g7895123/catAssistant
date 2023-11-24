@@ -27,6 +27,9 @@ class frenzyTotem
         $message_data = explode(' ', $message);
         $message_data_count = count($message_data);
 
+        $reply['msg'] = $message;
+        reply::common($reply);
+
         /* 11/21 1.5H +1.8E */
 
         /* 日期 */
