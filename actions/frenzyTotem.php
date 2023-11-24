@@ -27,7 +27,7 @@ class frenzyTotem
         $message_data = explode(' ', $message);
         $message_data_count = count($message_data);
 
-        $reply['msg'] = $message;
+        $reply['msg'] = $message_data_count;
         reply::common($reply);
         return;
 
