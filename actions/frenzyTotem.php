@@ -76,10 +76,6 @@ class frenzyTotem
         $record['finished_at'] = $finished_at;
         $record['date'] = $record_date;
 
-        // $reply['msg'] = json_encode($record);
-        // reply::common($reply);
-        // return;
-
         MYPDO::$table = 'frenzyTotemRecords';
         MYPDO::$data = $record;
         $insert_id = MYPDO::insert();
@@ -93,18 +89,25 @@ class frenzyTotem
         ];
         MYPDO::insert();
 
+        if ($type == 0){
+            $render_type = '輪燒';
+        }else if ($type == 1){
+            $render_type = '單輪';
+        }else if ($type == 2){
+            $render_type = '單燒';
+        }
         if ($amount_maple > 0){
             $message_amount = $amount_maple . '(楓幣)';
         }else if ($amount_ntd > 0){
-            $message_amount = $amount_maple . '(Linepay)';
+            $message_amount = $amount_ntd . '(Linepay)';
         }
         if ($insert_id > 0){
             $msg = "紀錄資料如下\n";
-            $msg = $msg . "類型:" . $type . "\n";
-            $msg = $msg . "金額" . $message_amount ."\n";
-            $msg = $msg . "開始時間" . $start_at ."\n";
-            $msg = $msg . "結束時間" . $finished_at ."\n";
-            $msg = $msg . "日期" . $record_date ."\n";
+            $msg = $msg . "類型: " . $render_type . "\n";
+            $msg = $msg . "金額: " . $message_amount ."\n";
+            $msg = $msg . "開始時間: " . $start_at ."\n";
+            $msg = $msg . "結束時間: " . $finished_at ."\n";
+            $msg = $msg . "日期: " . $record_date ."\n";
             $payload = [
                 'replyToken' => $reply['replyToken'],
                 'messages' => [
