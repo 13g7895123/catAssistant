@@ -29,6 +29,7 @@ class frenzyTotem
 
         $reply['msg'] = $message;
         reply::common($reply);
+        return;
 
         /* 11/21 1.5H +1.8E */
 
