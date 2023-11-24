@@ -61,7 +61,7 @@ class frenzyTotem
             }
         }
 
-        $type = 0
+        $type = 0;
         $amount_maple = ($amount_maple > 0) ? $amount_maple : 0;
         $amount_ntd = ($amount_ntd > 0) ? $amount_ntd : 0;
         $start_at = date("H:i:s");
