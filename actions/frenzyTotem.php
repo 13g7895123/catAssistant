@@ -64,9 +64,7 @@ class frenzyTotem
         $amount_ntd = ($amount_ntd > 0) ? $amount_ntd : 0;
 
         $record = [];
-        // $record['date'] = $date;
-        // $record['time'] = $time;
-        $record['type'] = 0;
+        $record['type'] = '0';
         $record['amount_maple'] = $amount_maple;
         $record['amount_ntd'] = $amount_ntd;
         $record['start_at'] = date("H:i:s");
