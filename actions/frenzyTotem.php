@@ -7,7 +7,7 @@ class frenzyTotem
         /* 變更動作 */
         MYPDO::$table = 'action';
         MYPDO::$data = [
-            'code' => 1,
+            'code' => '1',
             'name' => '新增輪燒紀錄',
             'time' => date("Y/m/d H:i:s")
         ];
