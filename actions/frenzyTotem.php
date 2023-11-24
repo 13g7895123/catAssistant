@@ -97,7 +97,7 @@ class frenzyTotem
             $render_type = '單燒';
         }
         if ($amount_maple > 0){
-            $message_amount = $amount_maple . '(楓幣)';
+            $message_amount = $amount_maple . $unit . '(楓幣)';
         }else if ($amount_ntd > 0){
             $message_amount = $amount_ntd . '(Linepay)';
         }
