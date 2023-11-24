@@ -26,7 +26,8 @@ foreach ($obj['events'] as $event) {
             reply::common($reply);
             break;
         case '1':
-            $msg = frenzyTotem::start();
+            // $msg = frenzyTotem::start();
+            $msg = '123';
             break;
         case '2':
             reincarnationRecords::finish_table($event);
