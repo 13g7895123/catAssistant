@@ -27,10 +27,6 @@ class frenzyTotem
         $message_data = explode(' ', $message);
         $message_data_count = count($message_data);
 
-        $reply['msg'] = $message_data_count;
-        reply::common($reply);
-        return;
-
         /* 11/21 1.5H +1.8E */
 
         /* 日期 */
@@ -40,6 +36,9 @@ class frenzyTotem
         if (strpos($time_long_str, 'H') !== false){
             $time_long = explode('H', $time_long_str)[0];
         }
+        $reply['msg'] = $time_long;
+        reply::common($reply);
+        return;
         /* 租用時間 */
         if ($message_data_count == 4){
 
