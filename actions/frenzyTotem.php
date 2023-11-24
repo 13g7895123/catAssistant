@@ -5,20 +5,20 @@ class frenzyTotem
 {
     public static function start(){
         /* 變更動作 */
-        // MYPDO::$table = 'action';
-        // MYPDO::$data = [
-        //     'code' => 1,
-        //     'name' => '新增輪燒紀錄',
-        //     'time' => date("Y/m/d H:i:s")
-        // ];
-        // $insert_id = MYPDO::insert();
+        MYPDO::$table = 'action';
+        MYPDO::$data = [
+            'code' => 1,
+            'name' => '新增輪燒紀錄',
+            'time' => date("Y/m/d H:i:s")
+        ];
+        $insert_id = MYPDO::insert();
 
-        // if ($insert_id > 0){
-        //     $msg = '請輸入紀錄資訊';
-        // }else{
-        //     $msg = '出租資料紀錄失敗';
-        // }
-        $msg = 234;
+        if ($insert_id > 0){
+            $msg = '請輸入紀錄資訊';
+        }else{
+            $msg = '出租資料紀錄失敗';
+        }
+        $msg = $insert_id;
         return $msg;
     }
 
