@@ -71,13 +71,14 @@ class frenzyTotem
         $record['finished_at'] = date("H:i:s", strtotime(date("H:i:s")) + $time_long * 60 * 60);
         $record['date'] = date("Y/m/d");
 
-        $reply['msg'] = json_encode($record);
-        reply::common($reply);
-        return;
-
         MYPDO::$table = 'frenzyTotemRecords';
         MYPDO::$data = $record;
         $insert_id = MYPDO::insert();
+
+        // $reply['msg'] = json_encode($record);
+        $reply['msg'] = $insert_id;
+        reply::common($reply);
+        return;
 
         /* 變更動作 */
         MYPDO::$table = 'action';
