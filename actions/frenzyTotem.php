@@ -64,8 +64,8 @@ class frenzyTotem
         $type = '0';
         $amount_maple = ($amount_maple > 0) ? $amount_maple : 0;
         $amount_ntd = ($amount_ntd > 0) ? $amount_ntd : 0;
-        $start_at = date("H:i:s");
-        $finished_at = date("H:i:s", strtotime(date("H:i:s")) + $time_long * 60 * 60);
+        $start_at = date("H:i");
+        $finished_at = date("H:i", strtotime(date("H:i")) + $time_long * 60 * 60);
         $record_date = date("Y/m/d");
 
         $record = [];
@@ -106,7 +106,7 @@ class frenzyTotem
             $msg = $msg . "結束時間" . $finished_at ."\n";
             $msg = $msg . "日期" . $record_date ."\n";
             $payload = [
-                'replyToken' => $event['replyToken'],
+                'replyToken' => $reply['replyToken'],
                 'messages' => [
                     [
                         'type' => 'text',
