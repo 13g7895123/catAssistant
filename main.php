@@ -1,6 +1,7 @@
 <?php
 include_once(__DIR__ . '/__Class/ClassLoad.php');
 include_once(__DIR__ . '/actions/actions.php');
+include_once(__DIR__ . '/frenzyTotem.php');
 
 $bodyMsg = file_get_contents('php://input');
 $obj = json_decode($bodyMsg, true);
