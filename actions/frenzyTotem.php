@@ -50,6 +50,7 @@ class frenzyTotem
         }
 
         $type = '0';
+        $amount_maple = ($unit == 'W') ? ($amount_maple / 10000) : $amount_maple;
         $amount_maple = ($amount_maple > 0) ? $amount_maple : 0;
         $amount_ntd = ($amount_ntd > 0) ? $amount_ntd : 0;
         $start_at = ($start_at == '') ? date("H:i") : $start_at;
@@ -85,6 +86,7 @@ class frenzyTotem
             $render_type = '單燒';
         }
         if ($amount_maple > 0){
+            $amount_maple = ($unit == 'W') ? ($amount_maple * 10000) : $amount_maple;
             $message_amount = $amount_maple . $unit . '(楓幣)';
         }else if ($amount_ntd > 0){
             $message_amount = $amount_ntd . '(Linepay)';
