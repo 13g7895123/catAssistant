@@ -29,43 +29,31 @@ class frenzyTotem
 
         /* 11/21 1.5H +1.8E */
 
-        /* 日期 */
-        $date = $message_data[0];
-        /* 租用時長 */
-        $time_long_str = strtoupper($message_data[1]);
-        if (strpos($time_long_str, 'H') !== false){
-            $time_long = explode('H', $time_long_str)[0];
-        }
-        /* 租用時間 */
-        if ($message_data_count == 4){
-
-        }
-        /* 金額 */
-        if ($message_data_count == 3){
-            $amount_str = strtoupper($message_data[2]);   
-        }else if ($message_data_count == 4){
-            $amount_str = strtoupper($message_data[3]);  
-        }
-        if (strpos($amount_str, '+') !== false){
-            /* 取得金額 */
-            $amount = explode('+', $amount_str)[1];
-            /* 判斷單位 */
-            $unit = substr($amount, -1);
-            $amount_str = explode('+', $amount_str)[1];
-            if ($unit == 'W'){
-                $amount_maple = explode('W', $amount_str)[0];
-            }else if ($unit == 'E'){            // 楓幣
-                $amount_maple = explode('E', $amount_str)[0];
-            }else{                              // Linepay
-                $amount_ntd = $amount;
+        foreach ($message_data as $mdkey => $mdval){
+            $now_value = strtoupper($mdval);
+            
+            if (strpos($now_value, 'H') !== false){         /* 租用時長 */
+                $time_long = explode('H', $now_value)[0];
+            }else if (strpos($now_value, ':') !== false){   /* 開始時間 */
+                $start_at = $now_value;
+            }else if (strpos($now_value, '+') !== false){   /* 金額 */
+                $amount = explode('+', $now_value)[1];  
+                $unit = substr($amount, -1);            /* 單位 */
+                if ($unit == 'W'){
+                    $amount_maple = explode('W', $amount)[0];
+                }else if ($unit == 'E'){            // 楓幣
+                    $amount_maple = explode('E', $amount)[0];
+                }else{                              // Linepay
+                    $amount_ntd = $amount;
+                }
             }
         }
 
         $type = '0';
         $amount_maple = ($amount_maple > 0) ? $amount_maple : 0;
         $amount_ntd = ($amount_ntd > 0) ? $amount_ntd : 0;
-        $start_at = date("H:i");
-        $finished_at = date("H:i", strtotime(date("H:i")) + $time_long * 60 * 60);
+        $start_at = ($start_at == '') ? date("H:i") : $start_at;
+        $finished_at = date("H:i", strtotime($start_at) + $time_long * 60 * 60);
         $record_date = date("Y/m/d");
 
         $record = [];
@@ -76,7 +64,7 @@ class frenzyTotem
         $record['finished_at'] = $finished_at;
         $record['date'] = $record_date;
 
-        MYPDO::$table = 'frenzyTotemRecords';
+        MYPDO::$table = 'frenzy_totem';
         MYPDO::$data = $record;
         $insert_id = MYPDO::insert();
 
