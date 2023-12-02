@@ -58,7 +58,7 @@ class frenzyTotem
 
         $record = [];
         $record['type'] = $type;
-        $record['amount_maple'] = $amount_maple / 10000;    /* 寫入單位為億 */
+        $record['amount_maple'] = $amount_maple;    /* 寫入單位為億 */
         $record['amount_ntd'] = $amount_ntd;
         $record['start_at'] = $start_at;
         $record['finished_at'] = $finished_at;
